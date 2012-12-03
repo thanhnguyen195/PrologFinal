@@ -1,0 +1,6 @@
+isThere(X,[X|Rest]).
+isThere(X,[First|Rest]):-isThere(X,Rest).
+
+
+isPrefix(X,[X|Rest]).
+isPrefix([First|Rest],[First|Rest1]):-isPrefix(Rest,Rest1).

@@ -1,0 +1,2 @@
+int(1).
+int(X):-int(Y),X is Y+1.

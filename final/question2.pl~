@@ -1,0 +1,3 @@
+merger([X],[[First|Rest2]|Rest],[[X,First|Rest2]|Rest1]):-merger([X],Rest,Rest1).
+merger([X],[],[]).
+

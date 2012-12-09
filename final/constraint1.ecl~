@@ -1,0 +1,25 @@
+:- lib(lists).
+:- lib(fd).
+:- lib(fd_search).
+
+calculate(Teas) :-
+	setup(Teas),
+	solve(Teas),
+	printC(Teas).
+
+setup(Teas) :-
+	Teas = [A,B,C],
+
+	Teas :: 0..20,
+
+	A + B + C #= 20,
+
+	A*60 + B*54 + C*42 = 20*57,
+
+solve(Teas) :-
+	Teas = [A,B,C],
+	minimize(labeling(Teas),A).
+
+printC(Teas) :-
+	Teas = [A,B,C],
+	printf("%3d%3d%3d\n", [A,B,C]).

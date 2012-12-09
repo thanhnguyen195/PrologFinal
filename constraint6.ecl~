@@ -1,0 +1,10 @@
+:-lib(lists).
+:-lib(fd).
+:-lib(fd_search).
+
+move([M],[M|Rgrid],[First|Rest]):-move([],Rgrid,[First|Rest]]).
+move([M],[Fgrid|Rgrid],[Fgrid|Rnewgrid]):-move([M],Rgrid,Rnewgrid).
+move([M],[],[M]).
+move([],[],[]).
+
+checkMoves([Fmove|Rmove],Grid):-!.

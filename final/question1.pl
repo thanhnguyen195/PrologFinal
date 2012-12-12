@@ -22,3 +22,7 @@ combine([First|Rest],X,[First|Rest1]):-combine(Rest,X,Rest1).
 
 prefixes([First|Rest],[First1|Rest1]):-prefixesPart([First],Rest,[First1|Rest1]).
 prefixes([],[[]]).
+
+
+
+

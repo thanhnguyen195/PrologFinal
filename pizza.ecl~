@@ -1,0 +1,104 @@
+:-lib(lists).
+:-lib(fd).
+:-lib(fd_search).
+
+prefs(peter,[PV,PM,PB,PS,PT,PG,PC]):-
+	PV+PM+PB+PS+PT+PG+PC #>=4,
+	PV+PM+PB+PS+PT+PG+PC #<=5,
+	PV#>=1,
+	PV#<=2,
+	PB#=1,
+	PS#= 0,
+	PG#>=1.
+
+prefs(roland,[PV,PM,PB,PS,PT,PG,PC]):-
+	PV+PM+PB+PS+PT+PG+PC #>=4,
+	PV+PM+PB+PS+PT+PG+PC #<=5,
+	PV#<=1,
+	PM#<=1,
+	PB#<=1,
+	PS#<=1,
+	PT#<=1,
+	PC#<=1.
+
+prefs(thomas,[PV,PM,PB,PS,PT,PG,PC]):-
+	PV+PM+PB+PS+PT+PG+PC #>=3,
+	PV+PM+PB+PS+PT+PG+PC #<=4,
+	PV#>=1,
+	PB#=1,
+	PS#=0,
+	PM#=0,
+	PC#=0,
+	PG#<=1.
+
+prefs(david,[PV,PM,PB,PS,PT,PG,PC]):-
+	PV+PM+PB+PS+PT+PG+PC #>=2,
+	PV+PM+PB+PS+PT+PG+PC #<=3,
+	PV#=0,
+	PT#=0,
+	PM#<=2,
+	PB#<=2,
+	PS#<=2,
+	PG#<=2,
+	PC#<=2.
+
+prefs(tim,[PV,PM,PB,PS,PT,PG,PC]):-
+	PV+PM+PB+PS+PT+PG+PC #>=3,
+	PV+PM+PB+PS+PT+PG+PC #<=4,
+	PB#>=1,
+	PG#=0,
+	PV#=0,
+	PT#=0,
+	PC#=0.
+
+prefs(ashley,[PV,PM,PB,PS,PT,PG,PC]):-
+	PV+PM+PB+PS+PT+PG+PC #>=3,
+	PV+PM+PB+PS+PT+PG+PC #<=3,
+	PG#=1,
+	PB#=1,
+	PM#=1.	
+
+prefs(sandy,[PV,PM,PB,PS,PT,PG,PC]):-
+	PV+PM+PB+PS+PT+PG+PC #<=4,
+	PB#=0,
+	PS#=0,
+	PT#=0,
+	PC#=0.	
+
+pizza([C|Cs],Vars,A):-
+	prefs(C,CP),print("Prefs for "),print(C),nl,
+	CP::0..100,
+	append([CP],A,A1),
+	pizza(Cs,Vars,A1).
+pizza([],V,V):-
+	labeling(V),print(V),
+	checkEven(V,[0,0,0,0,0,0,0]).
+	
+
+pizza1([],V,V).
+
+checkEven([First|Rest],Check):-
+	First = [PV,PM,PB,PS,PT,PG,PC],
+	Check = [PV1,PM1,PB1,PS1,PT1,PG1,PC1],
+	Check1 = [PV1+PV,PM1+PM,PB1+PB,PS1+PS,PT1+PT,PG1+PG,PC1+PC],
+	checkEven(Rest,Check1).
+checkEven([],Check):-
+	Check = [PV,PM,PB,PS,PT,PG,PC],
+	Half = [PVL,PML,PBL,PSL,PTL,PGL,PCL,PVM,PMM,PBM,PSM,PTM,PGM,PCM,PHL,PHM,PT],
+	Half :: 0..50,
+	PV #= PVL*4+PVM*3,
+	PM #= PML*4+PMM*3,
+	PB #= PBL*4+PBM*3,
+	PS #= PSL*4+PSM*3,
+	PT #= PTL*4+PTM*3,
+	PG #= PGL*4+PGM*3,
+	PC #= PCL*4+PCM*3,
+	PVL+PML+PBL+PSL+PTL+PGL+PCL #= PHL * 2,
+	PVM+PMM+PBM+PSM+PTM+PGM+PCM #= PHM * 2,
+	PT #= PHL + PHM,
+	labeling(Half).
+	
+	
+	
+
+	
